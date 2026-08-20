@@ -1,0 +1,28 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Setting;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<Setting>
+ */
+class SettingFactory extends Factory
+{
+    protected $model = Setting::class;
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'key' => fake()->unique()->slug(2),
+            'value' => '1',
+            'type' => 'int',
+            'group' => 'workload',
+            'label' => fake()->words(3, true),
+        ];
+    }
+}
