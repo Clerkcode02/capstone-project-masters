@@ -39,3 +39,4 @@ Then start with Prompt 0.1 in PROMPTS.md.
 
 Skills load only when relevant, so all five together cost ~500 tokens per session
 until one is actually needed.
+# capstone-project-masters
