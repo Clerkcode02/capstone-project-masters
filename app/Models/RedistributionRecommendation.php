@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Domain\Optimization\Enums\BottleneckBasis;
 use App\Domain\Optimization\Enums\RecommendationStatus;
 use App\Domain\Optimization\Enums\TriggerType;
 use Illuminate\Database\Eloquent\Model;
@@ -36,6 +37,7 @@ class RedistributionRecommendation extends Model
             'variance_percentage' => 'decimal:2',
             'from_workload_score' => 'integer',
             'suggested_workload_score' => 'integer',
+            'basis' => BottleneckBasis::class,
             'status' => RecommendationStatus::class,
             'reviewed_at' => 'datetime',
         ];
