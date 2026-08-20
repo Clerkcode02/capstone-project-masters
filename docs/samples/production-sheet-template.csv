@@ -1,0 +1,4 @@
+employee_code,log_date,account_code,hour_type,duration_minutes,notes
+EMP-1001,2026-08-17,ACC-NEWS01,production,420,Daily media monitoring report
+EMP-1002,2026-08-17,ACC-BRAND02,production,360,Sentiment analysis toning batch
+EMP-1001,2026-08-18,,leave,480,Approved sick leave

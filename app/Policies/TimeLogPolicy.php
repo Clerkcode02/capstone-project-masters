@@ -43,4 +43,13 @@ class TimeLogPolicy
     {
         return $this->update($user, $timeLog);
     }
+
+    /**
+     * Only managers and administrators may import production sheets on
+     * behalf of the team.
+     */
+    public function import(User $user): bool
+    {
+        return $user->isRole(Role::Manager) || $user->isRole(Role::Administrator);
+    }
 }

@@ -1,0 +1,11 @@
+employee_code,log_date,account_code,hour_type,duration_minutes,notes
+EMP-VALID1,2026-08-18,ACC-VALID,production,420,Valid row one
+EMP-VALID2,2026-08-18,ACC-VALID,non_production,60,Valid row two
+EMP-VALID1,2026-08-18,ACC-VALID,production,420,Valid row one
+EMP-UNKNOWN,2026-08-18,ACC-VALID,production,300,Unknown employee code
+EMP-VALID1,2026-08-19,ACC-VALID,vacation,300,Invalid hour type
+EMP-VALID1,2026-08-19,ACC-VALID,production,2000,Duration over max
+,2026-08-18,ACC-VALID,production,300,Missing employee code
+EMP-VALID1,2099-01-01,ACC-VALID,production,400,Future date
+EMP-VALID2,2026-08-20,ACC-VALID,leave,480,Duplicate of existing log
+EMP-VALID2,2026-08-21,,production,300,Missing account for production

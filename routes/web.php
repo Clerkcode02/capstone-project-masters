@@ -24,6 +24,14 @@ Route::middleware(['auth', 'verified', 'role:manager,administrator'])
     ->name('manager.')
     ->group(function () {
         Route::get('/dashboard', ManagerDashboardController::class)->name('dashboard');
+
+        Route::view('/production-sheet-import', 'manager.production-sheet-import')
+            ->name('production-sheet-import');
+
+        Route::get('/production-sheet-template', fn () => response()->download(
+            base_path('docs/samples/production-sheet-template.csv'),
+            'production-sheet-template.csv'
+        ))->name('production-sheet-template');
     });
 
 Route::middleware(['auth', 'verified'])
@@ -31,6 +39,8 @@ Route::middleware(['auth', 'verified'])
     ->name('my.')
     ->group(function () {
         Route::get('/dashboard', EmployeeDashboardController::class)->name('dashboard');
+
+        Route::view('/time-tracking', 'employee.time-tracking')->name('time-tracking');
     });
 
 Route::view('profile', 'profile')
