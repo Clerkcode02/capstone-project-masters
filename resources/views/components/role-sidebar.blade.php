@@ -11,10 +11,20 @@
             {{ __('My Workspace') }}
         </a>
 
+        <a href="{{ route('my.time-tracking') }}" wire:navigate
+           class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('my.time-tracking') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ __('Time Tracking') }}
+        </a>
+
         @if ($isManager || $isAdmin)
             <a href="{{ route('manager.dashboard') }}" wire:navigate
                class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('manager.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100' }}">
                 {{ __('Team Overview') }}
+            </a>
+
+            <a href="{{ route('manager.production-sheet-import') }}" wire:navigate
+               class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('manager.production-sheet-import') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100' }}">
+                {{ __('Production Sheet Import') }}
             </a>
         @endif
 
