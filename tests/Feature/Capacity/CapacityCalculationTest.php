@@ -315,10 +315,6 @@ it('keeps a stored metric unchanged after the designation target is later edited
         ->and((float) $metric->u_target)->not->toBe(0.500);
 });
 
-it('leaves tasks.assigned_to unchanged after bottleneck detection runs', function () {
-    // The optimization module (BottleneckDetectionService, RedistributionRecommender,
-    // and the optimization:detect command) is out of scope for this sprint per
-    // CLAUDE.md's "one sprint at a time" rule -- only the capacity forecasting
-    // engine (skill section 1) was implemented here. This test is left as a
-    // documented placeholder so the required-tests table stays complete.
-})->skip('optimization:detect / BottleneckDetectionService not yet implemented (future sprint)');
+// The engine-boundary test ("optimization:detect leaves tasks.assigned_to
+// unchanged") now lives in tests/Feature/Optimization/BottleneckDetectionTest.php
+// alongside the rest of the optimization module's coverage.

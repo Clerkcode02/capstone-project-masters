@@ -9,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('capacity:recalculate')->dailyAt('01:00');
+Schedule::command('optimization:detect')->dailyAt('01:15');
