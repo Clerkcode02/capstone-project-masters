@@ -40,4 +40,9 @@ class TaskPolicy
     {
         return $user->isRole(Role::Administrator) || $user->isRole(Role::Manager);
     }
+
+    public function assign(User $user, Task $task): bool
+    {
+        return $user->isRole(Role::Manager) || $user->isRole(Role::Administrator);
+    }
 }
