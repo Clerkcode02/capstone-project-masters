@@ -60,9 +60,10 @@ class AuthenticationTest extends TestCase
 
         $this->actingAs($user);
 
-        $response = $this->get('/dashboard');
+        $response = $this->get(route('dashboard'));
+        $response->assertRedirect(route('my.dashboard'));
 
-        $response
+        $this->get(route('my.dashboard'))
             ->assertOk()
             ->assertSeeVolt('layout.navigation');
     }
