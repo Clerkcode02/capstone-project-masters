@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Database\Factories\AccountFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -9,7 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
-    use SoftDeletes;
+    /** @use HasFactory<AccountFactory> */
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'name',
