@@ -13,6 +13,9 @@ class CapacityMetricPolicy
         return $user->isRole(Role::Manager) || $user->isRole(Role::Administrator);
     }
 
+    /**
+     * Employees can never view another employee's capacity metrics.
+     */
     public function view(User $user, CapacityMetric $capacityMetric): bool
     {
         if ($user->isRole(Role::Employee)) {

@@ -13,6 +13,9 @@ class TimeLogPolicy
         return true;
     }
 
+    /**
+     * Employees can never view another employee's raw time logs.
+     */
     public function view(User $user, TimeLog $timeLog): bool
     {
         if ($user->isRole(Role::Employee)) {
@@ -30,5 +33,19 @@ class TimeLogPolicy
     public function import(User $user): bool
     {
         return $user->isRole(Role::Manager) || $user->isRole(Role::Administrator);
+    }
+
+    public function update(User $user, TimeLog $timeLog): bool
+    {
+        if ($timeLog->is_locked) {
+            return false;
+        }
+
+        return $user->isRole(Role::Administrator) || $timeLog->user_id === $user->id;
+    }
+
+    public function delete(User $user, TimeLog $timeLog): bool
+    {
+        return $this->update($user, $timeLog);
     }
 }
