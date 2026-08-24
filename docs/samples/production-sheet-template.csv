@@ -1,0 +1,4 @@
+employee_code,log_date,account_code,hour_type,hours,notes
+EMP-0001,2026-08-03,AGL-001,production,4.5,Weekly media clipping report
+EMP-0001,2026-08-03,AGL-001,non_production,1.0,Team standup
+EMP-0002,2026-08-03,AGL-001,production,6.0,Sentiment analysis batch
