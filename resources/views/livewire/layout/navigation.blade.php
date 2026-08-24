@@ -33,6 +33,23 @@ new class extends Component
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('time-tracking.index')" :active="request()->routeIs('time-tracking.*')" wire:navigate>
+                        {{ __('Time Tracking') }}
+                    </x-nav-link>
+                    @if (auth()->user()->isRole(\App\Domain\Identity\Enums\Role::Manager) || auth()->user()->isRole(\App\Domain\Identity\Enums\Role::Administrator))
+                        <x-nav-link :href="route('dashboard.monthly')" :active="request()->routeIs('dashboard.monthly')" wire:navigate>
+                            {{ __('At-a-Glance') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('dashboard.quarterly')" :active="request()->routeIs('dashboard.quarterly')" wire:navigate>
+                            {{ __('Quarterly') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('dashboard.workload')" :active="request()->routeIs('dashboard.workload')" wire:navigate>
+                            {{ __('Team Workload') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('optimization.recommendations')" :active="request()->routeIs('optimization.*')" wire:navigate>
+                            {{ __('Recommendations') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -84,6 +101,23 @@ new class extends Component
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('time-tracking.index')" :active="request()->routeIs('time-tracking.*')" wire:navigate>
+                {{ __('Time Tracking') }}
+            </x-responsive-nav-link>
+            @if (auth()->user()->isRole(\App\Domain\Identity\Enums\Role::Manager) || auth()->user()->isRole(\App\Domain\Identity\Enums\Role::Administrator))
+                <x-responsive-nav-link :href="route('dashboard.monthly')" :active="request()->routeIs('dashboard.monthly')" wire:navigate>
+                    {{ __('At-a-Glance') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dashboard.quarterly')" :active="request()->routeIs('dashboard.quarterly')" wire:navigate>
+                    {{ __('Quarterly') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('dashboard.workload')" :active="request()->routeIs('dashboard.workload')" wire:navigate>
+                    {{ __('Team Workload') }}
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('optimization.recommendations')" :active="request()->routeIs('optimization.*')" wire:navigate>
+                    {{ __('Recommendations') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
