@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-24T00:00:00Z",
+  "title": "Design System: AI-Driven Work OS",
+  "extensions": {
+    "colorMeta": {
+      "board-amber": { "role": "primary", "displayName": "Amber Lamp", "canonical": "#e8a53d", "tonalRamp": ["#3a2a0d", "#5c4114", "#7e581c", "#a06f23", "#c2872b", "#e8a53d", "#efbc6c", "#f6d59b"] },
+      "board-red": { "role": "primary", "displayName": "Red Lamp", "canonical": "#e8756a", "tonalRamp": ["#3a1512", "#5c221d", "#7e2f27", "#a03c31", "#c25543", "#e8756a", "#ee968c", "#f4b8af"] },
+      "board-lit": { "role": "primary", "displayName": "Lit White", "canonical": "#f4f2ec", "tonalRamp": ["#3a3a37", "#5c5c56", "#7e7e75", "#a0a094", "#c2c2b3", "#e0e0d3", "#f4f2ec", "#faf9f5"] },
+      "board-ink": { "role": "neutral", "displayName": "Board Ink", "canonical": "#12151a", "tonalRamp": ["#0a0c0f", "#12151a", "#1a1e25", "#20252e", "#333a46", "#565f6f", "#9aa1af", "#f4f2ec"] },
+      "board-panel": { "role": "neutral", "displayName": "Board Panel", "canonical": "#1a1e25", "tonalRamp": ["#0a0c0f", "#12151a", "#1a1e25", "#20252e", "#333a46", "#565f6f", "#9aa1af", "#f4f2ec"] },
+      "board-flap": { "role": "neutral", "displayName": "Board Flap", "canonical": "#20252e", "tonalRamp": ["#0a0c0f", "#12151a", "#1a1e25", "#20252e", "#333a46", "#565f6f", "#9aa1af", "#f4f2ec"] },
+      "board-line": { "role": "neutral", "displayName": "Board Line", "canonical": "#333a46", "tonalRamp": ["#12151a", "#1a1e25", "#20252e", "#282e38", "#333a46", "#565f6f", "#9aa1af", "#c7ccd4"] },
+      "board-text": { "role": "neutral", "displayName": "Board Text", "canonical": "#f4f2ec", "tonalRamp": ["#3a3a37", "#5c5c56", "#7e7e75", "#a0a094", "#c2c2b3", "#e0e0d3", "#f4f2ec", "#faf9f5"] },
+      "board-muted": { "role": "neutral", "displayName": "Board Muted", "canonical": "#9aa1af", "tonalRamp": ["#333a46", "#454d5a", "#57616f", "#697485", "#7e879a", "#9aa1af", "#b7bcc7", "#d4d7de"] },
+      "slip-paper": { "role": "neutral", "displayName": "Slip Paper", "canonical": "#f4ecdd", "tonalRamp": ["#3f342b", "#615042", "#83705a", "#a59074", "#c7b096", "#e2d3bf", "#f4ecdd", "#faf5ec"] },
+      "slip-ink": { "role": "neutral", "displayName": "Slip Ink", "canonical": "#372f24", "tonalRamp": ["#181410", "#241e17", "#372f24", "#4b4132", "#605645", "#7a7160", "#a19a8c", "#cac5bb"] },
+      "slip-rule": { "role": "neutral", "displayName": "Slip Rule", "canonical": "#d9cbaf", "tonalRamp": ["#4a3f2f", "#6c5e46", "#8e7d5f", "#b09c79", "#d9cbaf", "#e4d9c5", "#eee6da", "#f7f2eb"] }
+    },
+    "typographyMeta": {
+      "board": { "displayName": "Board (Big Shoulders)", "purpose": "Every label, heading, and name — the flap-cell display face. Never used for a computed value." },
+      "slip": { "displayName": "Slip (JetBrains Mono)", "purpose": "Every computed figure — hours, percentages, formula values. Never used for a label." }
+    },
+    "shadows": [
+      { "name": "board-lift", "value": "0 8px 24px -8px rgba(0,0,0,0.5)", "purpose": "Single ambient lift on the outermost board container only; nothing inside it carries its own shadow." }
+    ],
+    "motion": [
+      { "name": "flap-cascade", "value": "rotateX(-90deg)->rotateX(8deg)->rotateX(0deg), opacity 0->1->1, 0.4s ease-out, transform-origin: top", "purpose": "Plays automatically on any <tr> whose wire:key changes (Livewire morph creates a fresh keyed node), simulating a flap-board row refresh. Static CSS class, not an Alpine x-transition — that approach did not fire reliably against Livewire-morphed nodes in this stack (Livewire 3.8.5). Disabled entirely under prefers-reduced-motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Stat Rail (shared rail, 4 segments)",
+      "kind": "custom",
+      "refersTo": "stat-segment",
+      "description": "The summary counters as one bordered rail with internal hairline dividers — not four separate cards.",
+      "html": "<div class=\"ds-stat-rail\"><div class=\"ds-stat-seg\"><div class=\"ds-stat-lamp-row\"><span class=\"ds-lamp ds-lamp-acceptable\"></span><p class=\"ds-stat-label\">On Target</p></div><p class=\"ds-stat-value\">18</p><p class=\"ds-stat-sub\">performing within the acceptable band</p></div><div class=\"ds-stat-seg\"><div class=\"ds-stat-lamp-row\"><span class=\"ds-lamp ds-lamp-over\"></span><p class=\"ds-stat-label\">Over Threshold</p></div><p class=\"ds-stat-value ds-value-red\">3</p><p class=\"ds-stat-sub\">burnout risk — review workload</p></div></div>",
+      "css": ".ds-stat-rail { display: flex; border: 1px solid #333a46; border-radius: 2px; background: #1a1e25; } .ds-stat-seg { flex: 1; padding: 12px 16px; border-left: 1px solid #333a46; } .ds-stat-seg:first-child { border-left: none; } .ds-stat-lamp-row { display: flex; align-items: center; gap: 6px; } .ds-lamp { width: 6px; height: 6px; border-radius: 999px; display: inline-block; } .ds-lamp-acceptable { background: #f4f2ec; } .ds-lamp-over { background: #e8756a; } .ds-stat-label { font-family: 'Big Shoulders', ui-sans-serif; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #9aa1af; } .ds-stat-value { font-family: 'Big Shoulders', ui-sans-serif; font-size: 1.875rem; font-weight: 800; line-height: 1; margin-top: 6px; color: #f4f2ec; font-variant-numeric: tabular-nums; } .ds-value-red { color: #e8756a; } .ds-stat-sub { margin-top: 6px; font-size: 0.7rem; color: #9aa1af; }"
+    },
+    {
+      "name": "Tier Badge — Over Threshold",
+      "kind": "chip",
+      "refersTo": "tier-badge-over",
+      "description": "Icon chip + label + percentage; icon always present so tier reads without relying on color.",
+      "html": "<span class=\"ds-tier-badge ds-tier-over\"><span class=\"ds-tier-icon\"><svg viewBox=\"0 0 16 16\" width=\"12\" height=\"12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 5v4\"/><circle cx=\"8\" cy=\"11.25\" r=\"0.75\" fill=\"currentColor\" stroke=\"none\"/><path d=\"M8 2 1.5 13.5h13Z\"/></svg></span><span class=\"ds-tier-label\">Over Threshold</span><span class=\"ds-tier-pct\">128.4%</span></span>",
+      "css": ".ds-tier-badge { display: inline-flex; align-items: center; gap: 8px; font-family: 'Big Shoulders', ui-sans-serif; color: #e8756a; } .ds-tier-icon { display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 2px; background: #e8756a; color: #3a1512; } .ds-tier-label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; } .ds-tier-pct { font-size: 0.75rem; font-weight: 600; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Workload Bar",
+      "kind": "custom",
+      "refersTo": "workload-bar",
+      "description": "Segmented capacity gauge; fill color reads from the same tier state as the badge, never its own ratio thresholds.",
+      "html": "<div class=\"ds-wbar\"><div class=\"ds-wbar-head\"><span>Hours used</span><span class=\"ds-wbar-figure\">142.5 / 160h</span></div><div class=\"ds-wbar-track\" role=\"img\" aria-label=\"89% of capacity used\"><span class=\"ds-seg ds-seg-fill\"></span><span class=\"ds-seg ds-seg-fill\"></span><span class=\"ds-seg ds-seg-fill\"></span><span class=\"ds-seg\"></span></div></div>",
+      "css": ".ds-wbar-head { display: flex; justify-content: space-between; font-family: 'Big Shoulders', ui-sans-serif; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; color: #9aa1af; } .ds-wbar-figure { font-family: 'JetBrains Mono', ui-monospace; text-transform: none; letter-spacing: normal; color: #f4f2ec; } .ds-wbar-track { display: flex; gap: 3px; margin-top: 6px; } .ds-seg { flex: 1; height: 10px; border-radius: 1px; background: #333a46; } .ds-seg-fill { background: #f4f2ec; }"
+    },
+    {
+      "name": "Recalculate Button",
+      "kind": "button",
+      "refersTo": "button-recalculate",
+      "description": "The one interactive amber accent on the page — recalculation is the action that can change a lamp's state.",
+      "html": "<button class=\"ds-btn-recalc\">Recalculate</button>",
+      "css": ".ds-btn-recalc { display: inline-flex; align-items: center; gap: 8px; border-radius: 2px; border: 1px solid #e8a53d; background: #e8a53d; color: #3a2a0d; padding: 8px 16px; font-family: 'Big Shoulders', ui-sans-serif; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; transition: background 0.15s; } .ds-btn-recalc:hover { background: rgba(232,165,61,0.9); } .ds-btn-recalc:focus-visible { outline: none; box-shadow: 0 0 0 2px #e8a53d, 0 0 0 4px #12151a; }"
+    },
+    {
+      "name": "Formula Drilldown Slip",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "The single sanctioned departure from the graphite ground: a warm paper-toned panel showing the full formula chain with substituted values, confined to the expanded row only.",
+      "html": "<div class=\"ds-slip\"><p class=\"ds-slip-title\">Formula drill-down</p><div class=\"ds-slip-grid\"><div><p class=\"ds-slip-k\">H_thresh = H_poss × U_target</p><p class=\"ds-slip-v\">128.00h</p></div></div><p class=\"ds-slip-line\">Performance % = (H_prod ÷ H_thresh) × 100 = (142.50 ÷ 128.00) × 100 = 111.33%</p></div>",
+      "css": ".ds-slip { background: #f4ecdd; color: #372f24; padding: 20px 24px; } .ds-slip-title { font-family: 'Big Shoulders', ui-sans-serif; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(55,47,36,0.6); border-bottom: 1px dashed #d9cbaf; padding-bottom: 12px; } .ds-slip-grid { margin-top: 12px; } .ds-slip-k { font-family: 'JetBrains Mono', ui-monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(55,47,36,0.5); } .ds-slip-v { font-family: 'JetBrains Mono', ui-monospace; font-size: 0.875rem; font-weight: 500; font-variant-numeric: tabular-nums; } .ds-slip-line { margin-top: 16px; font-family: 'JetBrains Mono', ui-monospace; font-size: 0.875rem; font-variant-numeric: tabular-nums; }"
+    },
+    {
+      "name": "Empty State",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Dashed panel with an 'unlit flap row' icon — the board's own vocabulary for nothing logged, instead of a generic inbox illustration.",
+      "html": "<div class=\"ds-empty\"><svg viewBox=\"0 0 40 28\" width=\"40\" height=\"28\" fill=\"none\"><rect x=\"0.75\" y=\"0.75\" width=\"38.5\" height=\"7.5\" rx=\"1\" stroke=\"#333a46\" stroke-width=\"1.5\"/><rect x=\"0.75\" y=\"10.25\" width=\"38.5\" height=\"7.5\" rx=\"1\" stroke=\"#333a46\" stroke-width=\"1.5\"/><rect x=\"0.75\" y=\"19.75\" width=\"38.5\" height=\"7.5\" rx=\"1\" stroke=\"#333a46\" stroke-width=\"1.5\"/></svg><p class=\"ds-empty-msg\">No capacity metrics for this period yet.</p></div>",
+      "css": ".ds-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; border: 1px dashed #333a46; background: #1a1e25; padding: 56px 24px; text-align: center; } .ds-empty-msg { max-width: 20rem; font-family: 'Big Shoulders', ui-sans-serif; font-size: 0.875rem; color: #9aa1af; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Rail-Concourse Split-Flap Board",
+    "overview": "This is the first visual surface built for the project, established by the Monthly At-a-Glance capacity screen. It refuses the hero-metric card grid every other capacity tool ships: no floating rounded cards, no drop-shadowed KPI tiles competing for attention. Instead the screen reads as a single physical departures board bolted into a graphite/steel wall — one shared bordered rail holding four readout counters, then a ruled row grid beneath it. The composition is the ruling: hairline dividers, not gaps and shadows, separate one figure from the next. Lamp state carries meaning without depending on color alone: lit/neutral means on target, amber means below the production threshold, red means over it — and every lamp state is always paired with a label and an icon, never color by itself. A manager scans the board, spots a lamp that needs attention, and clicks the row open to a printed paper slip that shows the exact formula chain — the one deliberate material shift in the whole system, confined to that drilldown panel.",
+    "keyCharacteristics": [
+      "One shared bordered rail for summary counters, never separate cards",
+      "Condensed, heavyweight display numerals (Big Shoulders) in a dark graphite ground",
+      "Monospace figures (JetBrains Mono) wherever a value is a computed number, never the display face",
+      "Lamp-state color is never the only signal — label + icon always accompany it",
+      "A warm paper-toned drilldown is the single sanctioned departure from the graphite ground"
+    ],
+    "rules": [
+      { "name": "The One Ground Rule", "body": "The graphite/steel neutral palette carries every surface except the formula drilldown. Amber and red never appear as decoration — only as a tier-state lamp, always paired with a label and an icon.", "section": "colors" },
+      { "name": "The Shared Lamp Rule", "body": "Tier color (amber/red/lit) is derived from one source — the PerformanceTier enum value — and read identically by x-tier-badge and x-workload-bar, so the badge and gauge can never disagree about what \"on target\" means for the same row.", "section": "colors" },
+      { "name": "The Two-Face Rule", "body": "font-board (Big Shoulders) is for labels, headings, and names — anything read as a word. font-slip (JetBrains Mono) is for anything read as a computed figure. A value never appears in the display face; a label never appears in the mono face.", "section": "typography" }
+    ],
+    "dos": [
+      "Do wrap grouped summary counters in one shared bordered rail with internal divide-x/divide-y hairlines — never separate bordered/shadowed cards per metric.",
+      "Do pair every tier-state color (amber/red/lit) with a label and an icon; color alone must never be the only signal of state.",
+      "Do derive fill/accent color for any capacity-related component (badges, bars, lamps) from the shared PerformanceTier value, never from an independently computed ratio or threshold local to that component.",
+      "Do use font-slip (JetBrains Mono, tabular-nums) for every computed figure, and font-board (Big Shoulders) for every label, heading, and name.",
+      "Do confine the slip-paper/slip-ink/slip-rule warm palette to the formula-drilldown surface only."
+    ],
+    "donts": [
+      "Don't give a summary/stat component its own border, background, or shadow when it's meant to sit inside a shared rail — that reproduces the hero-metric card grid this system's THESIS explicitly refuses.",
+      "Don't rely on Alpine x-transition for entry animation on Livewire-morphed rows in this stack; it does not fire reliably. Use a plain CSS @keyframes animation applied as a static class instead, keyed off a fresh node via wire:key.",
+      "Don't add drop shadows to interior elements (rows, badges, segments); the only sanctioned shadow is the single ambient lift on the outermost board container.",
+      "Don't introduce amber or red anywhere except as a tier-state lamp signal — they are not general-purpose accent or decorative colors."
+    ]
+  }
+}
