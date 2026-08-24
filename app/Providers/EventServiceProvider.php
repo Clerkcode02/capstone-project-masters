@@ -2,11 +2,19 @@
 
 namespace App\Providers;
 
+use App\Domain\Accounts\Events\AccountAudited;
 use App\Events\BaselineUpdated;
+use App\Events\ProductionSheetImported;
+use App\Events\RecommendationAccepted;
+use App\Events\RecommendationDismissed;
 use App\Events\RoleChanged;
 use App\Events\SettingUpdated;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
+use App\Listeners\LogAccountAuditEntry;
+use App\Listeners\LogProductionSheetImported;
+use App\Listeners\LogRecommendationAccepted;
+use App\Listeners\LogRecommendationDismissed;
 use App\Listeners\WriteAuditLog;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
@@ -44,6 +52,18 @@ class EventServiceProvider extends ServiceProvider
         ],
         BaselineUpdated::class => [
             WriteAuditLog::class.'@handleBaselineUpdated',
+        ],
+        AccountAudited::class => [
+            LogAccountAuditEntry::class,
+        ],
+        RecommendationAccepted::class => [
+            LogRecommendationAccepted::class,
+        ],
+        RecommendationDismissed::class => [
+            LogRecommendationDismissed::class,
+        ],
+        ProductionSheetImported::class => [
+            LogProductionSheetImported::class,
         ],
     ];
 
