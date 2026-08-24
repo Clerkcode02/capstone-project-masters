@@ -1,3 +1,49 @@
+@import '@fontsource/big-shoulders/600.css';
+@import '@fontsource/big-shoulders/700.css';
+@import '@fontsource/big-shoulders/800.css';
+@import '@fontsource/big-shoulders/900.css';
+@import '@fontsource/jetbrains-mono/400.css';
+@import '@fontsource/jetbrains-mono/500.css';
+@import '@fontsource/jetbrains-mono/600.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .tabular-nums {
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+/* A row's own wire:key changes when its underlying metric changes (see
+   monthly-at-a-glance.blade.php), so Livewire's morph creates a fresh <tr>
+   for that row and discards the old one. A plain CSS animation plays
+   automatically the instant such a node is inserted -- no JS observer
+   needed to notice the swap, unlike Alpine's x-transition, which does not
+   reliably fire on nodes Livewire's morph creates directly. */
+@keyframes flap-cascade {
+    0% {
+        transform: rotateX(-90deg);
+        opacity: 0;
+    }
+    60% {
+        transform: rotateX(8deg);
+        opacity: 1;
+    }
+    100% {
+        transform: rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+.animate-flap-cascade {
+    transform-origin: top;
+    animation: flap-cascade 0.4s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-flap-cascade {
+        animation: none;
+    }
+}
