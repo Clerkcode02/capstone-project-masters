@@ -11,10 +11,9 @@
         </div>
     </x-slot>
 
+    <x-flash-messages />
+
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-4">
-        @if (session('status'))
-            <div class="p-4 bg-green-50 text-green-700 rounded-md text-sm">{{ session('status') }}</div>
-        @endif
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <table class="min-w-full divide-y divide-gray-200">
@@ -52,7 +51,9 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-4 text-sm text-gray-500 text-center">{{ __('No accounts yet.') }}</td>
+                            <td colspan="5" class="px-6 py-4">
+                                <x-empty-state message="{{ __('No accounts yet.') }}" />
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

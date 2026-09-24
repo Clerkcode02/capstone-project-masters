@@ -1,15 +1,5 @@
 <div class="space-y-4">
-    @if (session('status'))
-        <div class="rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 text-sm">
-            {{ session('status') }}
-        </div>
-    @endif
-
-    @if (session('error'))
-        <div class="rounded-md bg-rose-50 border border-rose-200 text-rose-700 px-4 py-3 text-sm">
-            {{ session('error') }}
-        </div>
-    @endif
+    <x-flash-messages />
 
     @forelse ($this->pendingRecommendations as $recommendation)
         <div wire:key="recommendation-{{ $recommendation->id }}" class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
@@ -66,9 +56,7 @@
             </div>
         </div>
     @empty
-        <div class="bg-white border border-gray-200 rounded-lg shadow-sm p-8 text-center text-sm text-gray-500">
-            No pending recommendations right now.
-        </div>
+        <x-empty-state message="No pending recommendations right now." />
     @endforelse
 
     {{-- Accept confirmation --}}
@@ -97,8 +85,9 @@
                 <x-secondary-button wire:click="cancel">
                     {{ __('Cancel') }}
                 </x-secondary-button>
-                <x-primary-button wire:click="accept" wire:loading.attr="disabled">
-                    {{ __('Accept & Reassign') }}
+                <x-primary-button wire:click="accept" wire:loading.attr="disabled" wire:target="accept">
+                    <span wire:loading.remove wire:target="accept">{{ __('Accept & Reassign') }}</span>
+                    <span wire:loading wire:target="accept">{{ __('Reassigning…') }}</span>
                 </x-primary-button>
             </div>
         </div>
@@ -118,8 +107,9 @@
                 <x-secondary-button wire:click="cancel">
                     {{ __('Cancel') }}
                 </x-secondary-button>
-                <x-danger-button wire:click="dismiss" wire:loading.attr="disabled">
-                    {{ __('Dismiss') }}
+                <x-danger-button wire:click="dismiss" wire:loading.attr="disabled" wire:target="dismiss">
+                    <span wire:loading.remove wire:target="dismiss">{{ __('Dismiss') }}</span>
+                    <span wire:loading wire:target="dismiss">{{ __('Dismissing…') }}</span>
                 </x-danger-button>
             </div>
         </div>

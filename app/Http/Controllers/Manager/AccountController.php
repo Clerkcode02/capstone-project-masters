@@ -25,7 +25,10 @@ class AccountController extends Controller
     {
         $this->authorize('view', $account);
 
-        $account->load(['users' => fn ($query) => $query->orderBy('first_name')]);
+        $account->load([
+            'users' => fn ($query) => $query->orderBy('first_name'),
+            'tasks' => fn ($query) => $query->with('assignee')->latest()->limit(20),
+        ]);
 
         return view('manager.accounts.show', compact('account'));
     }

@@ -13,7 +13,9 @@
                 @forelse ($account->users as $employee)
                     <li class="py-3 text-sm text-gray-900">{{ $employee->full_name }}</li>
                 @empty
-                    <li class="py-3 text-sm text-gray-500">{{ __('No employees assigned yet.') }}</li>
+                    <li class="py-3">
+                        <x-empty-state message="{{ __('No employees assigned yet.') }}" />
+                    </li>
                 @endforelse
             </ul>
         </div>

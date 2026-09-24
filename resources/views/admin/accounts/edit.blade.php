@@ -5,10 +5,9 @@
         </h2>
     </x-slot>
 
+    <x-flash-messages />
+
     <div class="max-w-2xl mx-auto sm:px-6 lg:px-8 space-y-6">
-        @if (session('status'))
-            <div class="p-4 bg-green-50 text-green-700 rounded-md text-sm">{{ session('status') }}</div>
-        @endif
 
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
             <form method="POST" action="{{ route('admin.accounts.update', $account) }}" class="space-y-6">
@@ -60,7 +59,9 @@
                         </form>
                     </li>
                 @empty
-                    <li class="py-3 text-sm text-gray-500">{{ __('No employees assigned yet.') }}</li>
+                    <li class="py-3">
+                        <x-empty-state message="{{ __('No employees assigned yet.') }}" />
+                    </li>
                 @endforelse
             </ul>
 

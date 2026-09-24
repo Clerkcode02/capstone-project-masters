@@ -5,7 +5,5 @@
         </h2>
     </x-slot>
 
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 text-gray-900">
-        {{ __("You're logged in as an Employee.") }}
-    </div>
+    <livewire:dashboard.my-dashboard />
 </x-layouts.role>

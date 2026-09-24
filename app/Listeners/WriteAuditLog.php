@@ -6,6 +6,7 @@ use App\Domain\Administration\Services\AuditLogService;
 use App\Events\BaselineUpdated;
 use App\Events\RoleChanged;
 use App\Events\SettingUpdated;
+use App\Events\TaskAssigned;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use Illuminate\Auth\Events\Failed;
@@ -117,6 +118,33 @@ class WriteAuditLog
             auditableType: $event->baseline::class,
             auditableId: $event->baseline->id,
             description: "Updated baseline for {$event->baseline->period_year}-{$event->baseline->period_month}",
+            ipAddress: $this->ipAddress(),
+            userAgent: $this->userAgent(),
+        );
+    }
+
+    public function handleTaskAssigned(TaskAssigned $event): void
+    {
+        $this->auditLogService->log(
+            userId: $event->actor->id,
+            action: 'task_assigned',
+            auditableType: $event->task::class,
+            auditableId: $event->task->id,
+            description: "Assigned task {$event->task->reference} to {$event->assignee->full_name}",
+            ipAddress: $this->ipAddress(),
+            userAgent: $this->userAgent(),
+        );
+
+        if (! $event->wasOverAllocationOverride) {
+            return;
+        }
+
+        $this->auditLogService->log(
+            userId: $event->actor->id,
+            action: 'over_allocation_override',
+            auditableType: $event->task::class,
+            auditableId: $event->task->id,
+            description: "Assigned task {$event->task->reference} to {$event->assignee->full_name} despite the workload warning",
             ipAddress: $this->ipAddress(),
             userAgent: $this->userAgent(),
         );

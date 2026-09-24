@@ -28,7 +28,9 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-4 text-sm text-gray-500 text-center">{{ __('No accounts yet.') }}</td>
+                            <td colspan="4" class="px-6 py-4">
+                                <x-empty-state message="{{ __('No accounts yet.') }}" />
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -4,17 +4,24 @@ namespace App\Providers;
 
 use App\Domain\Accounts\Events\AccountAudited;
 use App\Events\BaselineUpdated;
+use App\Events\OverAllocationDetected;
 use App\Events\ProductionSheetImported;
 use App\Events\RecommendationAccepted;
+use App\Events\RecommendationCreated;
 use App\Events\RecommendationDismissed;
+use App\Events\ReportExported;
 use App\Events\RoleChanged;
 use App\Events\SettingUpdated;
+use App\Events\TaskAssigned;
 use App\Events\UserCreated;
 use App\Events\UserUpdated;
 use App\Listeners\LogAccountAuditEntry;
 use App\Listeners\LogProductionSheetImported;
 use App\Listeners\LogRecommendationAccepted;
 use App\Listeners\LogRecommendationDismissed;
+use App\Listeners\LogReportExported;
+use App\Listeners\NotifyNewRecommendation;
+use App\Listeners\NotifyOverAllocation;
 use App\Listeners\WriteAuditLog;
 use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Login;
@@ -53,6 +60,9 @@ class EventServiceProvider extends ServiceProvider
         BaselineUpdated::class => [
             WriteAuditLog::class.'@handleBaselineUpdated',
         ],
+        TaskAssigned::class => [
+            WriteAuditLog::class.'@handleTaskAssigned',
+        ],
         AccountAudited::class => [
             LogAccountAuditEntry::class,
         ],
@@ -64,6 +74,15 @@ class EventServiceProvider extends ServiceProvider
         ],
         ProductionSheetImported::class => [
             LogProductionSheetImported::class,
+        ],
+        ReportExported::class => [
+            LogReportExported::class,
+        ],
+        RecommendationCreated::class => [
+            NotifyNewRecommendation::class,
+        ],
+        OverAllocationDetected::class => [
+            NotifyOverAllocation::class,
         ],
     ];
 

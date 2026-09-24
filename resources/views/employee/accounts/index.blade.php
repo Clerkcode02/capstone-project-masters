@@ -26,7 +26,9 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-4 text-sm text-gray-500 text-center">{{ __('You are not assigned to any accounts yet.') }}</td>
+                            <td colspan="3" class="px-6 py-4">
+                                <x-empty-state message="{{ __('You are not assigned to any accounts yet.') }}" />
+                            </td>
                         </tr>
                     @endforelse
                 </tbody>

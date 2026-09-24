@@ -16,6 +16,11 @@
             {{ __('My Accounts') }}
         </a>
 
+        <a href="{{ route('reports.index') }}" wire:navigate
+           class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('reports.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100' }}">
+            {{ __('Reports') }}
+        </a>
+
         @if ($isManager || $isAdmin)
             <a href="{{ route('manager.dashboard') }}" wire:navigate
                class="block px-3 py-2 rounded-md text-sm font-medium {{ request()->routeIs('manager.*') && ! request()->routeIs('manager.accounts.*') ? 'bg-indigo-50 text-indigo-700' : 'text-gray-700 hover:bg-gray-100' }}">

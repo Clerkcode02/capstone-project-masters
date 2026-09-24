@@ -66,4 +66,8 @@ Route::middleware(['auth', 'role:manager,administrator'])->prefix('dashboard')->
     Route::view('/team-workload', 'team-workload')->name('workload');
 });
 
+Route::view('reports', 'reports.index')
+    ->middleware(['auth', 'verified'])
+    ->name('reports.index');
+
 require __DIR__.'/auth.php';

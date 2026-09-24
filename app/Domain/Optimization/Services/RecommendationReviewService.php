@@ -2,7 +2,10 @@
 
 namespace App\Domain\Optimization\Services;
 
+use App\Domain\Administration\Services\SettingsService;
 use App\Domain\Optimization\Enums\RecommendationStatus;
+use App\Domain\Tasks\Services\WorkloadScoreService;
+use App\Events\OverAllocationDetected;
 use App\Events\RecommendationAccepted;
 use App\Events\RecommendationDismissed;
 use App\Models\RedistributionRecommendation;
@@ -14,6 +17,11 @@ use RuntimeException;
 
 class RecommendationReviewService
 {
+    public function __construct(
+        private readonly WorkloadScoreService $workloadScoreService,
+        private readonly SettingsService $settings,
+    ) {}
+
     public function accept(RedistributionRecommendation $recommendation, User $reviewer, string $reason): TaskReassignment
     {
         return DB::transaction(function () use ($recommendation, $reviewer, $reason) {
@@ -51,8 +59,30 @@ class RecommendationReviewService
 
             RecommendationAccepted::dispatch($recommendation, $reassignment, $reviewer);
 
+            $this->checkOverAllocation($task->assigned_to);
+
             return $reassignment;
         });
+    }
+
+    private function checkOverAllocation(?int $userId): void
+    {
+        if ($userId === null) {
+            return;
+        }
+
+        $assignee = User::query()->find($userId);
+
+        if ($assignee === null) {
+            return;
+        }
+
+        $score = $this->workloadScoreService->scoreForUser($assignee);
+        $threshold = $this->settings->int('workload_threshold', 12);
+
+        if ($score > $threshold) {
+            OverAllocationDetected::dispatch($assignee, $score, $threshold);
+        }
     }
 
     public function dismiss(RedistributionRecommendation $recommendation, User $reviewer): void

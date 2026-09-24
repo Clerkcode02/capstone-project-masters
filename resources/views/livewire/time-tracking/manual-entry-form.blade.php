@@ -52,8 +52,18 @@
             <textarea wire:model="form.notes" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" rows="2"></textarea>
         </div>
 
-        <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700">
-            Log time
+        <button
+            type="submit"
+            wire:loading.attr="disabled"
+            wire:target="save"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+        >
+            <svg wire:loading wire:target="save" class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+            </svg>
+            <span wire:loading.remove wire:target="save">Log time</span>
+            <span wire:loading wire:target="save">Saving&hellip;</span>
         </button>
     </form>
 </div>

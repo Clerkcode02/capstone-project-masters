@@ -19,8 +19,18 @@
                 <div wire:loading wire:target="sheet" class="text-sm text-gray-500 mt-1">Uploading…</div>
             </div>
 
-            <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700">
-                Upload &amp; preview
+            <button
+                type="submit"
+                wire:loading.attr="disabled"
+                wire:target="uploadAndPreview,sheet"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+                <svg wire:loading wire:target="uploadAndPreview,sheet" class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                <span wire:loading.remove wire:target="uploadAndPreview,sheet">Upload &amp; preview</span>
+                <span wire:loading wire:target="uploadAndPreview,sheet">Uploading&hellip;</span>
             </button>
         </form>
     @else
@@ -95,10 +105,17 @@
             <div class="flex gap-3">
                 <button
                     wire:click="confirmImport"
+                    wire:loading.attr="disabled"
+                    wire:target="confirmImport"
                     @if (count($validRows) === 0) disabled @endif
-                    class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-md hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    Confirm import ({{ count($validRows) }} row(s))
+                    <svg wire:loading wire:target="confirmImport" class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                    </svg>
+                    <span wire:loading.remove wire:target="confirmImport">Confirm import ({{ count($validRows) }} row(s))</span>
+                    <span wire:loading wire:target="confirmImport">Importing&hellip;</span>
                 </button>
 
                 <button wire:click="cancel" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 text-gray-700 text-sm font-medium rounded-md hover:bg-gray-50">

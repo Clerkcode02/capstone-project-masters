@@ -4,12 +4,20 @@ namespace App\Models;
 
 use App\Domain\Optimization\Enums\RecommendationStatus;
 use App\Domain\Optimization\Enums\TriggerType;
+use App\Events\RecommendationCreated;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RedistributionRecommendation extends Model
 {
+    protected static function booted(): void
+    {
+        static::created(function (self $recommendation): void {
+            RecommendationCreated::dispatch($recommendation);
+        });
+    }
+
     protected $fillable = [
         'task_id',
         'from_user_id',

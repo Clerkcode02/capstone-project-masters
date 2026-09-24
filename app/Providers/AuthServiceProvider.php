@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\AuditLog;
 use App\Models\CapacityMetric;
 use App\Models\RedistributionRecommendation;
 use App\Models\Task;
 use App\Models\TimeLog;
 use App\Models\User;
+use App\Policies\AuditLogPolicy;
 use App\Policies\CapacityMetricPolicy;
 use App\Policies\RecommendationPolicy;
 use App\Policies\TaskPolicy;
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         TimeLog::class => TimeLogPolicy::class,
         CapacityMetric::class => CapacityMetricPolicy::class,
         RedistributionRecommendation::class => RecommendationPolicy::class,
+        AuditLog::class => AuditLogPolicy::class,
     ];
 
     public function boot(): void

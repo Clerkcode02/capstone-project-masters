@@ -15,8 +15,18 @@
                 <textarea wire:model="notes" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm" rows="2"></textarea>
             </div>
 
-            <button wire:click="stop" class="inline-flex items-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700">
-                Stop timer
+            <button
+                wire:click="stop"
+                wire:loading.attr="disabled"
+                wire:target="stop"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-md hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+                <svg wire:loading wire:target="stop" class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                <span wire:loading.remove wire:target="stop">Stop timer</span>
+                <span wire:loading wire:target="stop">Stopping&hellip;</span>
             </button>
         </div>
     @else
@@ -51,8 +61,18 @@
                 </select>
             </div>
 
-            <button wire:click="start" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700">
-                Start timer
+            <button
+                wire:click="start"
+                wire:loading.attr="disabled"
+                wire:target="start"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-md hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+                <svg wire:loading wire:target="start" class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                <span wire:loading.remove wire:target="start">Start timer</span>
+                <span wire:loading wire:target="start">Starting&hellip;</span>
             </button>
         </div>
     @endif
